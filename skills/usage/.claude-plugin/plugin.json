@@ -1,0 +1,14 @@
+{
+  "name": "usage",
+  "version": "1.0.0",
+  "description": "Real-time Claude usage percentages and reset countdown in the status bar. No cookies, no scraping — reads rate_limits data already present in every Claude Code API response.",
+  "author": {
+    "name": "Carlos Mesa",
+    "url": "https://github.com/93carlosmesa"
+  },
+  "homepage": "https://github.com/93carlosmesa/claude-code-skills/tree/main/skills/usage",
+  "repository": "https://github.com/93carlosmesa/claude-code-skills",
+  "license": "MIT",
+  "keywords": ["usage", "rate-limit", "monitor", "status", "tokens"],
+  "skills": "./skills/"
+}
