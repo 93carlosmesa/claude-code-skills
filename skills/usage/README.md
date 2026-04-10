@@ -3,21 +3,24 @@
 Shows live usage percentages and time until reset directly in the Claude Code status bar. **Alerts you in chat** when you're approaching your token limits.
 
 ```
-🟢 5h:32% ↺3h 15m   🟢 7d:8% ↺5d 0h
+🟢 ctx:12%   🟢 5h:32% ↺3h 15m   🟢 7d:8% ↺5d 0h
 ```
 
-No cookies, no scraping, no extra configuration. Works by reading `rate_limits` data that Claude Code already receives from Anthropic's API on every response.
+No cookies, no scraping, no extra configuration. Works by reading `rate_limits` and `context_window` data that Claude Code already receives from Anthropic's API on every response.
 
 ## What it shows
 
 | Indicator | Meaning |
 |-----------|---------|
+| `ctx` | Context window usage for the current session |
 | `5h` | Current 5-hour session window usage |
 | `7d` | Current 7-day weekly window usage |
 | `↺` | Time remaining until that window resets |
 | 🟢 | Under 70% |
 | 🟡 | 70–90% — getting close |
 | 🔴 | Over 90% — slow down |
+
+The `ctx` indicator lets you know when your session context is growing large — handy to decide if you should start a fresh session.
 
 ## Chat alerts
 

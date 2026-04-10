@@ -8,6 +8,8 @@ input=$(cat)
 # Cache for /usage command
 echo "$input" > /tmp/claude-usage-cache.json 2>/dev/null
 
+ctx_used=$(echo "$input" | jq -r '.context_window.used_percentage // empty' 2>/dev/null)
+
 five=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty' 2>/dev/null)
 five_reset=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty' 2>/dev/null)
 week=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty' 2>/dev/null)
@@ -42,6 +44,20 @@ time_remaining() {
 }
 
 out=""
+
+# Context window usage (only shown after first API call)
+if [ -n "$ctx_used" ]; then
+  ctx_int=$(printf '%.0f' "$ctx_used")
+  if [ "$ctx_int" -ge 90 ]; then
+    ctx_str="🔴 ctx:${ctx_int}%"
+  elif [ "$ctx_int" -ge 70 ]; then
+    ctx_str="🟡 ctx:${ctx_int}%"
+  else
+    ctx_str="🟢 ctx:${ctx_int}%"
+  fi
+  out="$ctx_str"
+fi
+
 if [ -n "$five" ]; then
   five_int=$(printf '%.0f' "$five")
   remaining=$(time_remaining "$five_reset")
