@@ -19,7 +19,12 @@ time_remaining() {
   local now
   now=$(date +%s)
   local reset_ts
-  reset_ts=$(date -d "$resets_at" +%s 2>/dev/null || date -j -f "%Y-%m-%dT%H:%M:%S" "${resets_at%%.*}" +%s 2>/dev/null)
+  # Handle both Unix timestamp (number) and ISO string
+  if [[ "$resets_at" =~ ^[0-9]+$ ]]; then
+    reset_ts="$resets_at"
+  else
+    reset_ts=$(date -d "$resets_at" +%s 2>/dev/null || date -j -f "%Y-%m-%dT%H:%M:%S" "${resets_at%%.*}" +%s 2>/dev/null)
+  fi
   [ -z "$reset_ts" ] && return
   local diff=$(( reset_ts - now ))
   [ "$diff" -le 0 ] && echo "resetting" && return
