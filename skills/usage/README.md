@@ -23,10 +23,22 @@ No cookies, no scraping, no extra configuration. Works by reading `rate_limits` 
 
 When either window crosses a threshold, a message appears directly in the conversation:
 
-- **80%** → warning, asks if you want to pause
-- **90%** → critical alert, asks if you want to stop
+- **80%** → warning, asks if you want to pause *(default)*
+- **90%** → critical alert, asks if you want to stop *(default)*
 
 Alerts fire **once per threshold** — no spam. Resets automatically when the window resets.
+
+### Custom thresholds
+
+Set environment variables to override defaults — useful for shared or limited accounts:
+
+```bash
+# Example: cap at 50% for a shared account
+export USAGE_WARN_PCT=40
+export USAGE_STOP_PCT=50
+```
+
+Add them to your shell profile (`~/.bashrc`, `~/.zshrc`) so they persist.
 
 ## Installation
 
