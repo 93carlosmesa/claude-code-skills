@@ -15,22 +15,22 @@ out=""
 if [ -n "$five" ]; then
   five_int=$(printf '%.0f' "$five")
   if [ "$five_int" -ge 90 ]; then
-    out="🔴5h:${five_int}%"
+    out="🔴 5h:${five_int}%"
   elif [ "$five_int" -ge 70 ]; then
-    out="🟡5h:${five_int}%"
+    out="🟡 5h:${five_int}%"
   else
-    out="🟢5h:${five_int}%"
+    out="🟢 5h:${five_int}%"
   fi
 fi
 
 if [ -n "$week" ]; then
   week_int=$(printf '%.0f' "$week")
   if [ "$week_int" -ge 90 ]; then
-    week_str="🔴7d:${week_int}%"
+    week_str="🔴 7d:${week_int}%"
   elif [ "$week_int" -ge 70 ]; then
-    week_str="🟡7d:${week_int}%"
+    week_str="🟡 7d:${week_int}%"
   else
-    week_str="🟢7d:${week_int}%"
+    week_str="🟢 7d:${week_int}%"
   fi
   out="${out:+$out }$week_str"
 fi
