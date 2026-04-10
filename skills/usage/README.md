@@ -1,6 +1,6 @@
 # usage — Claude usage monitor
 
-Shows live usage percentages and time until reset directly in the Claude Code status bar.
+Shows live usage percentages and time until reset directly in the Claude Code status bar. **Alerts you in chat** when you're approaching your token limits.
 
 ```
 🟢 5h:32% ↺3h 15m   🟢 7d:8% ↺5d 0h
@@ -18,6 +18,15 @@ No cookies, no scraping, no extra configuration. Works by reading `rate_limits` 
 | 🟢 | Under 70% |
 | 🟡 | 70–90% — getting close |
 | 🔴 | Over 90% — slow down |
+
+## Chat alerts
+
+When either window crosses a threshold, a message appears directly in the conversation:
+
+- **80%** → warning, asks if you want to pause
+- **90%** → critical alert, asks if you want to stop
+
+Alerts fire **once per threshold** — no spam. Resets automatically when the window resets.
 
 ## Installation
 
