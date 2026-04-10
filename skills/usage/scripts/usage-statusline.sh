@@ -11,6 +11,7 @@ echo "$input" > /tmp/claude-usage-cache.json 2>/dev/null
 five=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty' 2>/dev/null)
 five_reset=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty' 2>/dev/null)
 week=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty' 2>/dev/null)
+week_reset=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty' 2>/dev/null)
 
 # Calculate time remaining until reset
 time_remaining() {
@@ -28,9 +29,12 @@ time_remaining() {
   [ -z "$reset_ts" ] && return
   local diff=$(( reset_ts - now ))
   [ "$diff" -le 0 ] && echo "resetting" && return
-  local h=$(( diff / 3600 ))
+  local d=$(( diff / 86400 ))
+  local h=$(( (diff % 86400) / 3600 ))
   local m=$(( (diff % 3600) / 60 ))
-  if [ "$h" -gt 0 ]; then
+  if [ "$d" -gt 0 ]; then
+    echo "${d}d ${h}h"
+  elif [ "$h" -gt 0 ]; then
     echo "${h}h ${m}m"
   else
     echo "${m}m"
@@ -53,12 +57,14 @@ fi
 
 if [ -n "$week" ]; then
   week_int=$(printf '%.0f' "$week")
+  week_remaining=$(time_remaining "$week_reset")
+  week_countdown="${week_remaining:+ ↺${week_remaining}}"
   if [ "$week_int" -ge 90 ]; then
-    week_str="🔴 7d:${week_int}%"
+    week_str="🔴 7d:${week_int}%${week_countdown}"
   elif [ "$week_int" -ge 70 ]; then
-    week_str="🟡 7d:${week_int}%"
+    week_str="🟡 7d:${week_int}%${week_countdown}"
   else
-    week_str="🟢 7d:${week_int}%"
+    week_str="🟢 7d:${week_int}%${week_countdown}"
   fi
   out="${out:+$out   }$week_str"
 fi
