@@ -1,47 +1,57 @@
 # claude-code-skills
 
-A curated collection of skills for [Claude Code](https://claude.ai/code).
+Curated [Claude Code](https://claude.ai/code) skills by [@93carlosmesa](https://github.com/93carlosmesa).
 
-> This is a personal collection maintained by [@93carlosmesa](https://github.com/93carlosmesa). Not accepting external skill submissions.
+---
+
+## For humans
+
+### 1. Install `jq` if you don't have it
+
+```bash
+# Ubuntu/Debian
+sudo apt install jq
+
+# macOS
+brew install jq
+```
+
+### 2. Install a skill
+
+```bash
+git clone https://github.com/93carlosmesa/claude-code-skills.git /tmp/ccs-$$ && bash /tmp/ccs-$$/install.sh usage
+```
+
+### 3. Restart Claude Code
+
+The status bar will appear automatically on the next session.
+
+---
+
+## For AI agents
+
+To install a skill on behalf of a user, run this single command:
+
+```bash
+git clone https://github.com/93carlosmesa/claude-code-skills.git /tmp/ccs-$$ && bash /tmp/ccs-$$/install.sh usage
+```
+
+The installer handles everything: copies files, updates `settings.json`, sets permissions. `jq` must be available on the system — install it first if needed (`sudo apt install jq`).
+
+To see all available skills:
+
+```bash
+bash /tmp/ccs-$$/install.sh --list
+```
+
+---
 
 ## Available skills
 
-| Skill | Description |
+| Skill | What it does |
 |-------|-------------|
-| [usage](skills/usage/) | Real-time usage percentages in the Claude Code status bar |
+| `usage` | Shows real-time Claude usage % in the status bar — no cookies, no config |
 
-## Installation
+---
 
-### Quick install (one-liner)
-
-```bash
-git clone https://github.com/93carlosmesa/claude-code-skills.git /tmp/claude-code-skills && bash /tmp/claude-code-skills/install.sh usage
-```
-
-### Manual
-
-```bash
-git clone https://github.com/93carlosmesa/claude-code-skills.git
-cd claude-code-skills
-bash install.sh --list       # see all skills
-bash install.sh usage        # install a specific skill
-```
-
-## Requirements
-
-- [Claude Code](https://claude.ai/code) installed and authenticated
-- `jq` (`sudo apt install jq` / `brew install jq`)
-
-## Skills
-
-### `usage` — Claude usage monitor
-
-Shows your real-time usage percentages directly in the Claude Code status bar.
-
-```
-🟢5h:22%  🟢7d:39%
-```
-
-Reads `rate_limits` data from Claude Code's own API responses — no cookies, no scraping, no extra configuration needed. Works with any Claude plan (Pro, Max, Team).
-
-[View details →](skills/usage/README.md)
+> Personal collection — not accepting external submissions.
