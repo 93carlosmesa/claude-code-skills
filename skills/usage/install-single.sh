@@ -45,6 +45,12 @@ echo -e "  ${GREEN}✓${NC} Alert hook script installed"
 curl -fsSL "$BASE_URL/commands/usage.md" -o "$CLAUDE_DIR/commands/usage.md"
 echo -e "  ${GREEN}✓${NC} /usage command installed"
 
+# Install agents.conf template (only if user doesn't have one yet)
+if [ ! -f "$CLAUDE_DIR/agents.conf" ]; then
+  curl -fsSL "$BASE_URL/agents.conf.example" -o "$CLAUDE_DIR/agents.conf" 2>/dev/null && \
+    echo -e "  ${GREEN}✓${NC} agents.conf template installed (edit to customize labels)"
+fi
+
 # Update settings.json
 SETTINGS="$CLAUDE_DIR/settings.json"
 STATUS_CMD="bash $CLAUDE_DIR/scripts/usage-statusline.sh"
@@ -77,7 +83,9 @@ echo -e "  ${GREEN}✓${NC} settings.json updated (statusLine + Stop hook)"
 echo ""
 echo -e "  ${GREEN}Done!${NC} Restart Claude Code to activate."
 echo ""
-echo "  Status bar will show:  🟢 5h:22% ↺2h 30m   🟢 7d:39%"
+echo "  Status bar will show:  [agent]   🟢 ctx:8%   🟢 5h:22% ↺2h 30m   🟢 7d:39%"
 echo "  Alerts fire in chat at 80% and 90% — once per threshold."
 echo "  Type /usage for the full dashboard."
+echo ""
+echo "  Optional: edit $CLAUDE_DIR/agents.conf to label workspaces (e.g. 💜 Sam, 💻 Emma)."
 echo ""

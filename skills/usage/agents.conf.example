@@ -1,0 +1,17 @@
+# Claude Code — agent label map for the usage statusline.
+# Format: pattern|label      (first match wins; lines starting with # ignored)
+#
+# "pattern" is a substring matched against the session's cwd.
+# "label"   is the string prepended to the statusline when matched.
+#
+# Override the file location with env var CLAUDE_AGENTS_CONF,
+# or bypass entirely with CLAUDE_AGENT_LABEL (takes precedence).
+#
+# If you leave this file empty, the statusline falls back to a generic
+# "🤖 <Name>" label whenever your cwd looks like .../agents/<name>/
+# and shows no label otherwise.
+
+# --- Examples (edit / remove freely) ---
+# ~/projects/acme|🏢 Acme
+# /home/me/work|💼 Work
+# /opt/bots/alice|🤖 Alice
